@@ -1,0 +1,5 @@
+.card__btn_like {
+    background-image: url(../../../../images/icon-like.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
