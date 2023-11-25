@@ -1,0 +1,6 @@
+.profile {
+    max-width: 100%;
+    display: flex;
+    column-gap: 30px;
+    justify-content: space-between;
+}

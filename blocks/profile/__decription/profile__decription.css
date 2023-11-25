@@ -1,0 +1,9 @@
+.profile__decription {
+    margin: 0;
+    padding: 0;
+    max-width: 336px;
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: normal;
+}
