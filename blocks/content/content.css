@@ -1,6 +1,12 @@
 .content {
     margin-top: 39px;
-    margin-left: 15.63%;
-    margin-right: 15.63%;
+    margin-left: 15.6%;
+    margin-right: 15.6%;
     margin-bottom: 67px;
+}
+@media screen and (max-width: 990px) {
+    .content {
+        margin-left: 5.94%;
+        margin-right: 5.94%;
+    }
 }

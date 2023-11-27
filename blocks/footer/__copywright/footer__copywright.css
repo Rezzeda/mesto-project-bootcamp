@@ -6,3 +6,10 @@
     font-weight: 400;
     line-height: normal;
 }
+
+@media screen and (max-width: 990px) {
+    .footer__copywright {
+        font-size: 14px;
+        margin: 48px 0 36px 0;
+    }
+}

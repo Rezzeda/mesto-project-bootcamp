@@ -1,8 +1,5 @@
 .profile__btn {
     align-self: center;
-    /* сделать прозрачный фон */
-    background-color: #000;
+    background-color: rgba(0, 0, 0, 0);
     border: none;
-    /* margin: 0; */
-    /* padding: 0; */
 }

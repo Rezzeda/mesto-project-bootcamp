@@ -8,7 +8,7 @@
     margin-bottom: 41px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 990px) {
     .logo {
         width: 103.736px;
         height: 24.396px;

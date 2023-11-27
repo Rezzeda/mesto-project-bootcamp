@@ -1,9 +1,17 @@
 .profile__btn_action_edit-profile {
     width: 24px;
     height: 24px;
-    background-image: url(../../../../images/icon-edit.svg);
+    background-image: url(../../../../images/icon-edit-pencil.svg);
+    border: 1px #FFF solid;
     background-repeat: no-repeat;
     background-position: center;
     /* margin-left: auto; */
     /* margin-right: 0; */
+}
+
+@media screen and (max-width: 990px) {
+    .profile__btn_action_edit-profile {
+        width: 18px;
+        height: 18px;
+    }
 }
