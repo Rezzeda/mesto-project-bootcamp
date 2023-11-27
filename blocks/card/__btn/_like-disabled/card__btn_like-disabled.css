@@ -1,5 +1,10 @@
-.card__btn_like {
+.card__btn_like-disabled {
     background-image: url(../../../../images/icon-like.svg);
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.card__btn_like-disabled:hover {
+    opacity: 0.5;
+    transition: opacity 0.3s;
 }

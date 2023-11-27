@@ -1,0 +1,9 @@
+.popup {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    inset: 0;
+    /* cursor: pointer; */
+    overflow-y: auto;
+    box-sizing: border-box;
+}

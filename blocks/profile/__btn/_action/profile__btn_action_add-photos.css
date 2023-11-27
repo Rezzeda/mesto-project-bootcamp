@@ -1,7 +1,6 @@
 .profile__btn_action_add-photos {
     width: 150px;
     height: 50px;
-    /* background-image: url(../../../../images/icon-add-btn.svg); */
     background-image: url(../../../../images/icon-plus.svg);
     border: 2px #FFF solid;
     background-repeat: no-repeat;

@@ -2,4 +2,10 @@
     align-self: center;
     background-color: rgba(0, 0, 0, 0);
     border: none;
+    cursor: pointer;
+}
+
+.profile__btn:hover {
+    opacity: 0.6;
+    transition: opacity 0.3s;
 }

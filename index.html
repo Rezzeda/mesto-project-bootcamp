@@ -20,48 +20,62 @@
             </div>
             <button class="profile__btn profile__btn_action_add-photos"></button>
         </section>
+        <!-- to open popup: add class "popup_opened" -->
+        <div class="popup">
+            <div class="popup__container">
+                <button class="popup__btn popup__btn_action_close"></button>
+                <div class="edit-profile">
+                    <h2 class="edit-profile__title">Редактировать профиль</h2>
+                    <fieldset class="edit-profile__input-container">
+                        <input type="text" class="edit-profile__item edit-profile__item_name" placeholder="Жак-Ив Кусто">
+                        <input type="text" class="edit-profile__item edit-profile__item_description" placeholder="Исследователь океана">
+                    </fieldset>
+                    <button class="popup__btn popup__btn_action_save">Сохранить</button>
+                </div>
+            </div>
+        </div>
         <section class="gallery" aria-label="Фотогалерея">
             <ul class="cards">
                 <li class="card">
-                    <img src="./images/karachaevsk-min.jpg" alt="Карачаевск" class="card__image">
+                    <img src="./images/karachaevsk-min.jpg" alt="Каменная церковь заросла травой" class="card__image">
                     <div class="card__content">
                         <h2 class="card__title">Карачаевск</h2>
-                        <button class="card__btn card__btn_like"></button>
+                        <button class="card__btn card__btn_like-active"></button>
                     </div>
                 </li>
                 <li class="card">
-                    <img src="./images/elbrus-min.jpg" alt="" class="card__image">
+                    <img src="./images/elbrus-min.jpg" alt="Гора Эльбрус на закате" class="card__image">
                     <div class="card__content">
                         <h2 class="card__title">Гора Эльбрус</h2>
-                        <button class="card__btn card__btn_like"></button>
+                        <button class="card__btn card__btn_like-disabled"></button>
                     </div>
                 </li>
                 <li class="card">
-                    <img src="./images/dombay-min.jpg" alt="" class="card__image">
+                    <img src="./images/dombay-min.jpg" alt="Домбай. Горы в тумане" class="card__image">
                     <div class="card__content">
                         <h2 class="card__title">Домбай</h2>
-                        <button class="card__btn card__btn_like"></button>
+                        <button class="card__btn card__btn_like-disabled"></button>
                     </div>
                 </li>
                 <li class="card">
-                    <img src="./images/elbrus-min.jpg" alt="" class="card__image">
+                    <img src="./images/elbrus-min.jpg" alt="Гора Эльбрус на закате" class="card__image">
                     <div class="card__content">
                         <h2 class="card__title">Гора Эльбрус</h2>
-                        <button class="card__btn card__btn_like"></button>
+                        <button class="card__btn card__btn_like-disabled"></button>
                     </div>
                 </li>
                 <li class="card">
-                    <img src="./images/dombay-min.jpg" alt="" class="card__image">
+                    <img src="./images/dombay-min.jpg" alt="Домбай. Горы в тумане" class="card__image">
                     <div class="card__content">
                         <h2 class="card__title">Домбай</h2>
-                        <button class="card__btn card__btn_like"></button>
+                        <button class="card__btn card__btn_like-disabled"></button>
                     </div>
                 </li>
                 <li class="card">
-                    <img src="./images/karachaevsk-min.jpg" alt="" class="card__image">
+                    <img src="./images/karachaevsk-min.jpg" alt="Каменная церковь заросла травой" class="card__image">
                     <div class="card__content">
                         <h2 class="card__title">Карачаево-Черкессия</h2>
-                        <button class="card__btn card__btn_like"></button>
+                        <button class="card__btn card__btn_like-disabled"></button>
                     </div>
                 </li>
             </ul>
