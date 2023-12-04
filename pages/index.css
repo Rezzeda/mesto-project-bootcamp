@@ -28,9 +28,8 @@
 @import url(../blocks/popup/__btn/_action/_save/popup__btn_action_save.css);
 
 
-@import url(../blocks/grid-item/grid-item.css);
 @import url(../blocks/gallery/gallery.css);
-@import url(../blocks/cards/cards.css);
+@import url(../blocks/gallery/cards/gallery__cards.css);
 @import url(../blocks/card/card.css);
 @import url(../blocks/card/__image/card__image.css);
 @import url(../blocks/card/__content/card__content.css);
@@ -40,4 +39,4 @@
 @import url(../blocks/card/__btn/_like-disabled/card__btn_like-disabled.css);
 
 @import url(../blocks/footer/footer.css);
-@import url(../blocks/footer/__copywright/footer__copywright.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);

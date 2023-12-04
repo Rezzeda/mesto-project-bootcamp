@@ -6,6 +6,8 @@
     background-repeat: no-repeat;
     background-position: center;
     margin-left: auto;
+    border-radius: 2px;
+    background-size: 22px 22px;
 }
 
 @media screen and (max-width: 990px) {
@@ -13,5 +15,6 @@
         margin: 0 auto;
         width: 100%;
         min-width: 282px;
+        background-size: 16px 16px;
     }
 }

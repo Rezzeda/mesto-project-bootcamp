@@ -3,4 +3,6 @@
     border-top-right-radius: 10px;
     width: 282px;
     height: 282px;
+    object-fit: fill;
+    object-position: 50% 50%;
 }

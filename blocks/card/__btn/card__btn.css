@@ -2,9 +2,16 @@
     width: 22px;
     height: 19px;
     border: none;
-    background-color: #FFF;
+    background-color: rgba(0, 0, 0, 0);
     margin: auto 20px auto 0;
     padding-left: 18px;
     padding-right: 4px;
     cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.card__btn:hover {
+    opacity: 0.5;
+    transition: opacity 0.3s;
 }
