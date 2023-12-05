@@ -2,6 +2,7 @@
     margin: 0 15.63%;
     border-bottom: 1px solid rgb(84,84,84, 0.7);
     box-sizing: border-box;
+    flex: auto;
 }
 
 @media screen and (max-width: 990px) {

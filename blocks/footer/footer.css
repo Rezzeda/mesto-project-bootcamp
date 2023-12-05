@@ -1,4 +1,5 @@
 .footer {
     margin-left: 15.6%;
     margin-right: 15.6%;
+    flex-shrink: 0
 }

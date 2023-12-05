@@ -1,6 +1,7 @@
-.edit-profile__item {
+.form__item {
     margin: 0;
     padding: 0;
+    padding-bottom: 8px;
     border: 0;
     color: #000;
     font-size: 14px;
@@ -13,7 +14,7 @@
 }
 
 @media screen and (max-width: 660px) {
-    .edit-profile__item {
+    .form__item {
         width: 238px;
     }
 }

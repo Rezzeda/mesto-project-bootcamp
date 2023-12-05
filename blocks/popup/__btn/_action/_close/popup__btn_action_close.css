@@ -6,14 +6,16 @@
     border: none;
     background-repeat: no-repeat;
     background-position: center;
-    margin: 8px;
     align-self: flex-end;
     cursor: pointer;
+    transition: opacity 0.3s;
+    position: absolute;
+    top: -40px;
+    right: 8px;
 }
 
 .popup__btn_action_close:hover {
     opacity: 0.6;
-    transition: opacity 0.3s;
 }
 
 @media screen and (max-width: 660px) {
@@ -21,7 +23,7 @@
         background-image: url(../../../.././../images/icon-close-mob.svg);
         width: 20px;
         height: 20px;
-        margin: 0;
-        margin-bottom: 16px;
+        top: -36px;
+        right: 0px;
     }
 }

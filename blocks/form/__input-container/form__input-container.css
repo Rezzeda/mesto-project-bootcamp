@@ -1,0 +1,15 @@
+.form__input-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 11px;
+    border: 0;
+    row-gap: 30px;
+}
+
+@media screen and (max-width: 660px) {
+    .form__input-container  {
+        margin-bottom: 9px;
+    }
+}

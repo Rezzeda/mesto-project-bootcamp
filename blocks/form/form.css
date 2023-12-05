@@ -1,19 +1,16 @@
-.edit-profile {
+.form {
     background-color: #fff;
     border-radius: 10px;
     min-width: 430px;
-    min-height: 330px;
     cursor: default;
     margin: 0 48px;
     display: flex;
     flex-direction: column;
-    /* padding: 34px auto 37px auto; */
 }
 
 @media screen and (max-width: 660px) {
-    .edit-profile  {
+    .form {
         min-width: 282px;
-        min-height: 322px;
         margin: 0;
     }
 }

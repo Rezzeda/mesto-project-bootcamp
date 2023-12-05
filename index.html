@@ -12,7 +12,7 @@
     </header>
     <main class="content">
         <section class="profile">
-            <div class="profile__photo"></div>
+            <img src="./images/profile-photo.jpeg" alt="фото Жак Жак-Ив Кусто" class="profile__photo">
             <div class="profile__container">
                 <h1 class="profile__name grid-item">Жак-Ив Кусто</h1>
                 <button class="profile__btn profile__btn_action_edit-profile grid-item" type="button"></button>
@@ -24,13 +24,15 @@
         <div class="popup">
             <div class="popup__container">
                 <button class="popup__btn popup__btn_action_close" type="button"></button>
-                <div class="edit-profile">
-                    <h2 class="edit-profile__title">Редактировать профиль</h2>
-                    <fieldset class="edit-profile__input-container">
-                        <input type="text" class="edit-profile__item edit-profile__item_name" placeholder="Жак-Ив Кусто">
-                        <input type="text" class="edit-profile__item edit-profile__item_description" placeholder="Исследователь океана">
-                    </fieldset>
-                    <button class="popup__btn popup__btn_action_save" type="button">Сохранить</button>
+                <div class="form">
+                    <h2 class="form__title">Редактировать профиль</h2>
+                    <form action="#">
+                        <fieldset class="form__input-container">
+                            <input name="name" type="text" class="form__item form__item_name" placeholder="Жак-Ив Кусто">
+                            <input name="description" type="text" class="form__item form__item_description" placeholder="Исследователь океана">
+                        </fieldset>
+                        <button class="popup__btn popup__btn_action_save" type="button">Сохранить</button>
+                    </form>
                 </div>
             </div>
         </div>
