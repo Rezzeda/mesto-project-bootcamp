@@ -1,11 +1,11 @@
 // Редактирование профиля
 const editProfileButton = document.querySelector('.profile__btn_action_edit-profile');
 const popup = document.querySelector('.popup');
-const nameInput = document.querySelector('.form__item_name');
-const descriptionInput = document.querySelector('.form__item_description');
+const nameInput = document.querySelector('.popup__item_name');
+const descriptionInput = document.querySelector('.popup__item_description');
 const closeButton = document.querySelector('.popup__btn_action_close');
 const saveButton = document.querySelector('.popup__btn_action_save');
-const formElement = document.querySelector('.form');
+const formElement = document.querySelector('.popup__form');
 
 //Открытие модльного окна
 function openPopup () {

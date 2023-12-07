@@ -21,15 +21,15 @@
             <button class="profile__btn profile__btn_action_add-photos" type="button"></button>
         </section>
         <!-- popup profile edit -->
-        <div class="popup popup_edit-profile">
+        <div class="popup popup_type_edit-profile">
             <div class="popup__container">
                 <button class="popup__btn popup__btn_action_close" type="button"></button>
-                <div class="form">
-                    <h2 class="form__title">Редактировать профиль</h2>
-                    <form action="#" class="form1">
-                        <fieldset class="form__input-container">
-                            <input name="name" type="text" class="form__item form__item_name" placeholder="Жак-Ив Кусто">
-                            <input name="description" type="text" class="form__item form__item_description" placeholder="Исследователь океана">
+                <div class="popup__window"> 
+                    <h2 class="popup__title">Редактировать профиль</h2>
+                    <form action="#" class="popup__form" name="form-edit-profile">
+                        <fieldset class="popup__input-container">
+                            <input name="name" type="text" class="popup__item popup__item_name" placeholder="Жак-Ив Кусто">
+                            <input name="description" type="text" class="popup__item popup__item_description " placeholder="Исследователь океана">
                         </fieldset>
                         <button class="popup__btn popup__btn_action_save" type="submit">Сохранить</button>
                     </form>
@@ -37,15 +37,15 @@
             </div>
         </div>
         <!-- popup adding image  -->
-        <div class="popup popup_add-image">
+        <div class="popup popup_type_add-image">
             <div class="popup__container">
                 <button class="popup__btn popup__btn_action_close" type="button"></button>
-                <div class="form">
-                    <h2 class="form__title">Новое место</h2>
-                    <form action="#" class="form1">
-                        <fieldset class="form__input-container">
-                            <input name="name" type="text" class="form__item form__item_name" placeholder="Название">
-                            <input name="description" type="text" class="form__item form__item_description" placeholder="Ссылка на картинку">
+                <div class="popup__window"> 
+                    <h2 class="popup__title">Новое место</h2>
+                    <form action="#" class="popup__form" name="form-add-image">
+                        <fieldset class="popup__input-container">
+                            <input name="name" type="text" class="popup__item popup__item_place-name" placeholder="Название">
+                            <input name="description" type="text" class="popup__item popup__item_link" placeholder="Ссылка на картинку">
                         </fieldset>
                         <button class="popup__btn popup__btn_action_save" type="submit">Создать</button>
                     </form>
@@ -53,7 +53,7 @@
             </div>
         </div>
         <!-- popup view image -->
-        <div class="popup popup_view-photo">
+        <div class="popup popup_type_view-photo">
             <div class="popup__container">
                 <button class="popup__btn popup__btn_action_close" type="button"></button>
                 <figure class="photo">

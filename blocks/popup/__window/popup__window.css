@@ -1,4 +1,4 @@
-.form {
+.popup__window {
     background-color: #fff;
     border-radius: 10px;
     min-width: 430px;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (max-width: 660px) {
-    .form {
+    .popup__window {
         min-width: 282px;
         margin: 0;
     }
