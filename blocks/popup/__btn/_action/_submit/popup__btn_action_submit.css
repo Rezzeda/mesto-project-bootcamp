@@ -1,4 +1,4 @@
-.popup__btn_action_save {
+.popup__btn_action_submit {
     padding: 12px 14px;
     width: 358px;
     border-radius: 2px;
@@ -14,12 +14,12 @@
     transition: opacity 0.3s;
 }
 
-.popup__btn_action_save:hover {
+.popup__btn_action_submit:hover {
     opacity: 0.8;
 }
 
 @media screen and (max-width: 660px) {
-    .popup__btn_action_save {
+    .popup__btn_action_submit {
         width: 238px;
         font-size: 14px;
         margin-right: 22px;

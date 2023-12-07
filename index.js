@@ -1,11 +1,13 @@
 // Редактирование профиля
 const editProfileButton = document.querySelector('.profile__btn_action_edit-profile');
 const popup = document.querySelector('.popup');
+const popupEditProfile = document.querySelector('.popup_type_edit-profile') ;
 const nameInput = document.querySelector('.popup__item_name');
 const descriptionInput = document.querySelector('.popup__item_description');
 const closeButton = document.querySelector('.popup__btn_action_close');
-const saveButton = document.querySelector('.popup__btn_action_save');
+const submitButton = document.querySelector('.popup__btn_action_submit');
 const formElement = document.querySelector('.popup__form');
+const addCard = document.querySelector('.profile__btn_action_add-photos');
 
 //Открытие модльного окна
 function openPopup () {
@@ -44,7 +46,7 @@ editProfileButton.addEventListener('click', openPopup);
 closeButton.addEventListener('click', closePopup);
 
 // Находим кнопку "Сохранить" и добавляем обработчик события для сохранения изменений
-saveButton.addEventListener('click', editProfile);
+submitButton.addEventListener('click', editProfile);
 
 function handleFormSubmit(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы. Так мы можем определить свою логику отправки. О том, как это делать, расскажем позже.
@@ -53,6 +55,9 @@ function handleFormSubmit(evt) {
 }
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit);
+
+// добавляем обработчик события кнопке добавления карточки для открытия модального окна
+// addCard.addEventListener('click', openPopup')
 
 // Добавление карточек «из коробки»
 const initialCards = [
