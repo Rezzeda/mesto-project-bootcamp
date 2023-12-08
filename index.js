@@ -115,6 +115,7 @@ function createCard (dataCard) {
     cardElementTitle.textContent = dataCard.name;
     cardElementImage.src = dataCard.link;
     cardElementTrashButton.addEventListener('click', deleteCard);
+    cardElementLikeButton.addEventListener('click', likeCard)
     return galleryCard;
 }
 
@@ -127,3 +128,7 @@ initialCards.forEach((dataCard) => {
 function deleteCard(evt) {
     evt.target.closest('.card').remove();
 };
+
+function likeCard(evt) {
+    evt.target.classList.toggle('card__btn_like-active')
+}
