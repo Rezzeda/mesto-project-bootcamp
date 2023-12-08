@@ -5,8 +5,7 @@ const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupAddImage = document.querySelector('.popup_type_add-image');
 const nameInput = document.querySelector('.popup__item_name');
 const descriptionInput = document.querySelector('.popup__item_description');
-
-const submitButton = document.querySelector('.popup__btn_action_submit');
+const formEditProfile = document.querySelector('.popup__form_profile')
 const formElement = document.querySelector('.popup__form');
 
 // кнопка закрытия popup
@@ -14,8 +13,11 @@ const closeButtons = document.querySelectorAll('.popup__btn_action_close');
 
 //popup добавление карточек
 const addCardButton = document.querySelector('.profile__btn_action_add-photos');
-const placeNameInput = document.querySelector('.profile__place_name');
-const itemLinkInput = document.querySelector('.profile__item_link');
+const placeNameInput = document.querySelector('.popup__item_place-name');
+const itemLinkInput = document.querySelector('.popup__item_link');
+const templateCard = document.querySelector('#card-template').content.querySelector('.card');
+const listGalleryCards = document.querySelector('.gallery__cards');
+const formAddImage = document.querySelector('.popup__form_add-image')
 
 //Открытие модльного окна
 function openPopup (item) {
@@ -58,16 +60,12 @@ function editProfile() {
     closePopup(popupEditProfile);
 }
 
-// Находим кнопку "Сохранить" и добавляем обработчик события для сохранения изменений
-submitButton.addEventListener('click', editProfile);
-
-function handleFormSubmit(evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы. Так мы можем определить свою логику отправки. О том, как это делать, расскажем позже.
-    // Вызываем функцию обновления профиля
+//Функция сохранения внесенных в формы popup изменений при рекдактиронии профиля
+formEditProfile.addEventListener('submit', (evt) => {
+    evt.preventDefault();
     editProfile();
-}
-// Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', handleFormSubmit);
+    closePopup(popupEditProfile);
+});
 
 //добавляем обработчик события кнопке добавления карточки для открытия модального окна
 addCardButton.addEventListener('click', () => {
@@ -102,9 +100,6 @@ const initialCards = [
     }
 ];
 
-const templateCard = document.querySelector('#card-template').content.querySelector('.card');
-const listGalleryCards = document.querySelector('.gallery__cards');
-
 //функция создания карточки
 function createCard (dataCard) {
     const galleryCard = templateCard.cloneNode(true);
@@ -129,6 +124,25 @@ function deleteCard(evt) {
     evt.target.closest('.card').remove();
 };
 
+//Функция "нравится"
 function likeCard(evt) {
     evt.target.classList.toggle('card__btn_like-active')
 }
+
+// функция создания карточки из введенных данных
+function addCardFromPopup() {
+    const newCardData = {
+        name: placeNameInput.value,
+        link: itemLinkInput.value,
+    }
+    const newCard = createCard(newCardData);
+    listGalleryCards.prepend(newCard);
+
+    closePopup(popupAddImage);
+};
+
+formAddImage.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    addCardFromPopup();
+    evt.target.reset();
+});
