@@ -19,6 +19,11 @@ const templateCard = document.querySelector('#card-template').content.querySelec
 const listGalleryCards = document.querySelector('.gallery__cards');
 const formAddImage = document.querySelector('.popup__form_add-image')
 
+//popup просмотра фото
+const popupViewPhoto = document.querySelector('.popup_type_view-photo');
+const popupPhoto = document.querySelector('.popup__photo');
+const popupPhotoCaption = document.querySelector('.popup__photo-caption');
+
 //Открытие модльного окна
 function openPopup (item) {
     item.classList.add('popup_opened');
@@ -110,7 +115,8 @@ function createCard (dataCard) {
     cardElementTitle.textContent = dataCard.name;
     cardElementImage.src = dataCard.link;
     cardElementTrashButton.addEventListener('click', deleteCard);
-    cardElementLikeButton.addEventListener('click', likeCard)
+    cardElementLikeButton.addEventListener('click', likeCard);
+    cardElementImage.addEventListener('click', viewCardPhoto);
     return galleryCard;
 }
 
@@ -146,3 +152,10 @@ formAddImage.addEventListener('submit', (evt) => {
     addCardFromPopup();
     evt.target.reset();
 });
+
+//Функция открытия просмотра изображения карточки
+function viewCardPhoto(evt) {
+    openPopup(popupViewPhoto);
+    popupPhoto.src = evt.target.closest('.card__image').src;
+    popupPhotoCaption.textContent = evt.target.closest('.card').textContent;
+};
