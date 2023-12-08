@@ -65,9 +65,10 @@
         <!--  -->
         <section class="gallery" aria-label="Фотогалерея">
             <ul class="gallery__cards">
-                <li class="card">
+                <!-- <li class="card">
                     <article aria-label="Место">
                         <img src="./images/karachaevsk-min.jpg" alt="Каменная церковь заросла травой" class="card__image">
+                        <button class="card__btn_trash" type="button"></button>
                         <div class="card__content">
                             <h2 class="card__title">Карачаевск</h2>
                             <button class="card__btn card__btn_like-active" type="button"></button>
@@ -77,6 +78,7 @@
                 <li class="card">
                     <article aria-label="Место">
                         <img src="./images/elbrus-min.jpg" alt="Гора Эльбрус на закате" class="card__image">
+                        <button class="card__btn_trash" type="button"></button>
                         <div class="card__content">
                             <h2 class="card__title">Гора Эльбрус</h2>
                             <button class="card__btn card__btn_like-disabled" type="button"></button>
@@ -86,6 +88,7 @@
                 <li class="card">
                     <article aria-label="Место">
                     <img src="./images/dombay-min.jpg" alt="Домбай. Горы в тумане" class="card__image">
+                    <button class="card__btn_trash" type="button"></button>
                     <div class="card__content">
                         <h2 class="card__title">Домбай</h2>
                         <button class="card__btn card__btn_like-disabled" type="button"></button>
@@ -95,6 +98,7 @@
                 <li class="card">
                     <article aria-label="Место">
                     <img src="./images/elbrus-min.jpg" alt="Гора Эльбрус на закате" class="card__image">
+                    <button class="card__btn_trash" type="button"></button>
                     <div class="card__content">
                         <h2 class="card__title">Гора Эльбрус</h2>
                         <button class="card__btn card__btn_like-disabled" type="button"></button>
@@ -104,6 +108,7 @@
                 <li class="card">
                     <article aria-label="Место">
                     <img src="./images/dombay-min.jpg" alt="Домбай. Горы в тумане" class="card__image">
+                    <button class="card__btn_trash" type="button"></button>
                     <div class="card__content">
                         <h2 class="card__title">Домбай</h2>
                         <button class="card__btn card__btn_like-disabled" type="button"></button>
@@ -113,18 +118,31 @@
                 <li class="card">
                     <article aria-label="Место">
                         <img src="./images/karachaevsk-min.jpg" alt="Каменная церковь заросла травой" class="card__image">
+                        <button class="card__btn_trash" type="button"></button>
                         <div class="card__content">
                             <h2 class="card__title">Карачаево-Черкессия</h2>
                             <button class="card__btn card__btn_like-disabled" type="button"></button>
                         </div>
                     </article>
-                </li>
+                </li> -->
             </ul>
         </section>
     </main>
     <footer class="footer">
         <p class="footer__copyright">&COPY; 2020 Mesto Russia</p>
     </footer>
+    <template id="card-template">
+        <li class="card">
+            <article aria-label="Место">
+                <img src="#" alt="фото места" class="card__image">
+                <button class="card__btn_trash" type="button"></button>
+                <div class="card__content">
+                    <h2 class="card__title"></h2>
+                    <button class="card__btn card__btn_like-disabled" type="button"></button>
+                </div>
+            </article>
+        </li>
+    </template>
     <script src="./index.js"></script>
 </body>
 </html>

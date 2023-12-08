@@ -1,17 +1,18 @@
-.card__btn {
-    width: 22px;
+.card__btn_trash {
+    width: 18px;
     height: 19px;
     border: none;
     background-color: rgba(0, 0, 0, 0);
-    margin: auto 20px auto 0;
-    padding-left: 18px;
-    padding-right: 4px;
     cursor: pointer;
+    background-image: url(../../../../images/icon-trash.svg);
     background-repeat: no-repeat;
     background-position: center;
     transition: opacity 0.3s;
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
-.card__btn:hover {
+.card__btn_trash:hover {
     opacity: 0.5;
 }
