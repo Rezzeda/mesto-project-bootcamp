@@ -1,3 +1,5 @@
+import '../pages/index.css';
+
 // popup Редактирование профиля
 const editProfileButton = document.querySelector('.profile__btn_action_edit-profile');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
