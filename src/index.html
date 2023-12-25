@@ -25,12 +25,25 @@
                 <button class="popup__btn popup__btn_action_close" type="button"></button>
                 <div class="popup__window"> 
                     <h2 class="popup__title">Редактировать профиль</h2>
-                    <form action="#" class="popup__form popup__form_profile" name="form-edit-profile">
+                    <form action="#" class="popup__form popup__form_profile" name="form-edit-profile" novalidate>
                         <fieldset class="popup__input-container">
-                            <input name="name" type="text" class="popup__item popup__item_name" placeholder="Жак-Ив Кусто">
-                            <input name="description" type="text" class="popup__item popup__item_description " placeholder="Исследователь океана">
+                            <div class="popup__field">
+                                <input name="name"
+                                type="text"
+                                class="popup__item popup__item_name"
+                                placeholder="Имя"
+                                required>
+                                <span class="error" id="name-error"></span>
+                            </div>
+                            <div class="popup__field">
+                                <input name="description"
+                                type="text"
+                                class="popup__item popup__item_description"
+                                placeholder="О себе"
+                                required>
+                                <span class="error" id="description-error"></span></div>
                         </fieldset>
-                        <button class="popup__btn popup__btn_action_submit" type="submit">Сохранить</button>
+                        <button disabled class="popup__btn popup__btn_action_submit popup__btn_disabled" type="submit">Сохранить</button>
                     </form>
                 </div>
             </div>
@@ -41,12 +54,26 @@
                 <button class="popup__btn popup__btn_action_close" type="button"></button>
                 <div class="popup__window"> 
                     <h2 class="popup__title">Новое место</h2>
-                    <form action="#" class="popup__form popup__form_add-image" name="form-add-image">
+                    <form action="#" class="popup__form popup__form_add-image" name="form-add-image" novalidate>
                         <fieldset class="popup__input-container">
-                            <input name="place-name" type="text" class="popup__item popup__item_place-name" placeholder="Название">
-                            <input name="link" type="text" class="popup__item popup__item_link" placeholder="Ссылка на картинку">
+                            <div class="popup__field">
+                                <input name="place-name"
+                                type="text"
+                                class="popup__item popup__item_place-name"
+                                placeholder="Название"
+                                minlength="20"
+                                maxlength="30">
+                                <span class="error" id="place-name-error"></span>
+                            </div>
+                            <div class="popup__field">
+                                <input name="link"
+                                type="url"
+                                class="popup__item popup__item_link"
+                                placeholder="Ссылка на картинку">
+                                <span class="error" id="link-error"></span>
+                            </div>
                         </fieldset>
-                        <button class="popup__btn popup__btn_action_submit" type="submit">Создать</button>
+                        <button disabled class="popup__btn popup__btn_action_submit popup__btn_disabled" type="submit">Создать</button>
                     </form>
                 </div>
             </div>

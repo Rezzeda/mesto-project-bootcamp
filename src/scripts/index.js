@@ -8,13 +8,8 @@ const nameInput = document.querySelector('.popup__item_name');
 const descriptionInput = document.querySelector('.popup__item_description');
 // const formEditProfile = document.querySelector('.popup__form_profile')
 const formEditProfile = document.forms["form-edit-profile"];
-let newName = '';
-let newDescription = '';
-
-
-// Заполняем поля формы текущими значениями
-const currentName = document.querySelector('.profile__name').textContent;
-const currentDescription = document.querySelector('.profile__decription').textContent;
+const newName = document.querySelector('.profile__name');
+const newDescription = document.querySelector('.profile__decription');
 
 // кнопка закрытия popup
 const closeButtons = document.querySelectorAll('.popup__btn_action_close');
@@ -41,8 +36,8 @@ function openPopup (item) {
 // добавляем обработчик события кнопке редактирования профиля для открытия модального окна c заполнением данных из профиля
 editProfileButton.addEventListener('click', () => {
     openPopup(popupEditProfile);
-    currentName = nameInput.value;
-    currentDescription = descriptionInput.value;
+    nameInput.value = newName.textContent;
+    descriptionInput.value = newDescription.textContent;
 });
 
 // Функция закрытия модального окна
@@ -60,13 +55,8 @@ closeButtons.forEach((item) => {
 
 // Функция обновления профиля введенными даннными
 function editProfile() {
-    // // Получаем значения из полей формы
-    newName = nameInput.value;
-    newDescription = descriptionInput.value;
-    // Обновляем значения на странице
-    document.querySelector('.profile__name').textContent = newName;
-    document.querySelector('.profile__decription').textContent = newDescription;
-    // Закрываем модальное окно
+    newName.textContent = nameInput.value;
+    newDescription.textContent = descriptionInput.value;
     closePopup(popupEditProfile);
 }
 
@@ -166,3 +156,96 @@ function viewCardPhoto(evt) {
     popupPhoto.alt = evt.target.closest('.card__image').alt;
     popupPhotoCaption.textContent = evt.target.closest('.card').textContent;
 };
+///////
+
+// Поле закрытия Popup при нажатии на Overlay
+const popupCloseClickOverlay = document.querySelectorAll('.popup');   
+
+// Закрытие всех Popup при нажатии на Overlay
+popupCloseClickOverlay.forEach((item) => {
+    item.addEventListener('click', (evt) => {
+    if (evt.target === evt.currentTarget) {
+        const overlayClosest = evt.target.closest('.popup');
+        closePopup(overlayClosest);
+        };
+    });
+});
+
+// Функция обработки события клавиатуры
+function handleEscKey(event) {
+    if (event.key === 'Escape') {
+        const openedPopup = document.querySelector('.popup_opened');
+        if (openedPopup) {
+            closePopup(openedPopup);
+        }
+    }
+}
+
+// Добавление обработчика события клавиатуры
+document.addEventListener('keydown', handleEscKey);
+
+
+function showError(inputElement, errorElement, config) {
+    inputElement.classList.add(config.inputErrorClass); //'popup__item_invalid'
+    errorElement.textContent = inputElement.validationMessage;
+}
+
+function hideError(inputElement, errorElement, config) {
+    inputElement.classList.remove(config.inputErrorClass); //'popup__item_invalid'
+    errorElement.textContent = inputElement.validationMessage;
+}
+
+function checkInputValidity(inputElement, formElement, config) {
+    const isInputValidity = inputElement.validity.valid;
+    const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+    console.log(errorElement);
+    if (isInputValidity) {
+        hideError(inputElement, errorElement, config);
+    } else {
+        showError(inputElement, errorElement, config);
+    }
+};
+
+function toggleButtonState(popupButtonSubmit, isFormValid, config) {
+    if (isFormValid) {
+    popupButtonSubmit.removeAttribute('disabled');
+    popupButtonSubmit.classList.remove(config.inactiveButtonClass); //popup__btn_disabled
+    } else {
+    popupButtonSubmit.setAttribute('disabled', true);
+    popupButtonSubmit.classList.add(config.inactiveButtonClass); //popup__btn_disabled
+    }
+}
+
+function setEventListener (formElement, config) {
+    const inputList = formElement.querySelectorAll(config.inputSelector); //.popup__item
+    const popupButtonSubmit = formElement.querySelector(config.submitButtonSelector); //.popup__btn_action_submit
+    toggleButtonState (popupButtonSubmit, formElement.checkValidity(), config);
+        inputList.forEach((inputElement) => {
+            inputElement.addEventListener('input', () => {
+                toggleButtonState (popupButtonSubmit, formElement.checkValidity(), config);
+                checkInputValidity(inputElement, formElement, config);
+            });
+        });
+
+        formElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+        });
+};
+
+function enableValidation(config) {
+    const formList = document.querySelectorAll(config.formSelector);//.popup__form
+    formList.forEach(function (formElement) {
+        setEventListener(formElement, config)
+        });
+}
+
+
+//Объект валидации
+const configForm = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__item',
+    submitButtonSelector: '.popup__btn',
+    inactiveButtonClass: 'popup__btn_disabled',
+    inputErrorClass: 'popup__item_invalid',
+}
+enableValidation(configForm);

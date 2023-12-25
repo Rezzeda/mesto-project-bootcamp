@@ -1,0 +1,6 @@
+.popup__btn_disabled {
+    color: rgba(0, 0, 0, 0.15);
+    border: 2px rgba(0, 0, 0, 0.15) solid;
+    background-color: transparent;
+    cursor: default;
+}
