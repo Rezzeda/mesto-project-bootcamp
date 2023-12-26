@@ -32,7 +32,9 @@
                                 type="text"
                                 class="popup__item popup__item_name"
                                 placeholder="Имя"
-                                required>
+                                required
+                                minlength="2"
+                                maxlength="40">
                                 <span class="error" id="name-error"></span>
                             </div>
                             <div class="popup__field">
@@ -40,7 +42,9 @@
                                 type="text"
                                 class="popup__item popup__item_description"
                                 placeholder="О себе"
-                                required>
+                                required
+                                minlength="2"
+                                maxlength="200">
                                 <span class="error" id="description-error"></span></div>
                         </fieldset>
                         <button disabled class="popup__btn popup__btn_action_submit popup__btn_disabled" type="submit">Сохранить</button>
@@ -61,15 +65,17 @@
                                 type="text"
                                 class="popup__item popup__item_place-name"
                                 placeholder="Название"
-                                minlength="20"
-                                maxlength="30">
+                                minlength="2"
+                                maxlength="30"
+                                required>
                                 <span class="error" id="place-name-error"></span>
                             </div>
                             <div class="popup__field">
                                 <input name="link"
                                 type="url"
                                 class="popup__item popup__item_link"
-                                placeholder="Ссылка на картинку">
+                                placeholder="Ссылка на картинку"
+                                required>
                                 <span class="error" id="link-error"></span>
                             </div>
                         </fieldset>

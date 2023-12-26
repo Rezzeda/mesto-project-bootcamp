@@ -46,3 +46,4 @@
 @import url(../blocks/error/error.css);
 @import url(../blocks/popup/field/popup__field.css);
 @import url(../blocks/popup/__item/_invalid/popup__item_invalid.css);
+@import url(../blocks/popup/__form/popup__form.css);

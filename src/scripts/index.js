@@ -20,7 +20,6 @@ const placeNameInput = document.querySelector('.popup__item_place-name');
 const itemLinkInput = document.querySelector('.popup__item_link');
 const templateCard = document.querySelector('#card-template').content.querySelector('.card');
 const listGalleryCards = document.querySelector('.gallery__cards');
-// const formAddImage = document.querySelector('.popup__form_add-image')
 const formAddImage = document.forms["form-add-image"];
 
 //popup просмотра фото
@@ -156,7 +155,6 @@ function viewCardPhoto(evt) {
     popupPhoto.alt = evt.target.closest('.card__image').alt;
     popupPhotoCaption.textContent = evt.target.closest('.card').textContent;
 };
-///////
 
 // Поле закрытия Popup при нажатии на Overlay
 const popupCloseClickOverlay = document.querySelectorAll('.popup');   
@@ -171,6 +169,9 @@ popupCloseClickOverlay.forEach((item) => {
     });
 });
 
+// Добавление обработчика события клавиатуры
+document.addEventListener('keydown', handleEscKey);
+
 // Функция обработки события клавиатуры
 function handleEscKey(event) {
     if (event.key === 'Escape') {
@@ -180,10 +181,6 @@ function handleEscKey(event) {
         }
     }
 }
-
-// Добавление обработчика события клавиатуры
-document.addEventListener('keydown', handleEscKey);
-
 
 function showError(inputElement, errorElement, config) {
     inputElement.classList.add(config.inputErrorClass); //'popup__item_invalid'
@@ -238,7 +235,6 @@ function enableValidation(config) {
         setEventListener(formElement, config)
         });
 }
-
 
 //Объект валидации
 const configForm = {
