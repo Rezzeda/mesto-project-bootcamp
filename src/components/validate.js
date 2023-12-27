@@ -1,12 +1,3 @@
-//Объект валидации
-const configForm = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__item',
-    submitButtonSelector: '.popup__btn',
-    inactiveButtonClass: 'popup__btn_disabled',
-    inputErrorClass: 'popup__item_invalid',
-}
-
 export function showError(inputElement, errorElement, config) {
     inputElement.classList.add(config.inputErrorClass); //'popup__item_invalid'
     errorElement.textContent = inputElement.validationMessage;
@@ -20,7 +11,7 @@ export function hideError(inputElement, errorElement, config) {
 export function checkInputValidity(inputElement, formElement, config) {
     const isInputValidity = inputElement.validity.valid;
     const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
-    console.log(errorElement);
+    // console.log(errorElement);
     if (isInputValidity) {
         hideError(inputElement, errorElement, config);
     } else {
@@ -31,7 +22,7 @@ export function checkInputValidity(inputElement, formElement, config) {
 export function toggleButtonState(popupButtonSubmit, isFormValid, config) {
     if (isFormValid) {
     popupButtonSubmit.removeAttribute('disabled');
-    popupButtonSubmit.classList.remove(config.inactiveButtonClass); //popup__btn_disabled
+    popupButtonSubmit.classList.remove(config.inactiveButtonClass);
     } else {
     popupButtonSubmit.setAttribute('disabled', true);
     popupButtonSubmit.classList.add(config.inactiveButtonClass); //popup__btn_disabled
@@ -48,15 +39,28 @@ export function setEventListener (formElement, config) {
                 checkInputValidity(inputElement, formElement, config);
             });
         });
-
-        formElement.addEventListener('submit', (e) => {
-            e.preventDefault();
-        });
 };
 
 export function enableValidation(config) {
     const formList = document.querySelectorAll(config.formSelector);//.popup__form
     formList.forEach(function (formElement) {
-        setEventListener(formElement, config)
+        setEventListener(formElement, config);
+        formElement.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+            resetFormState(formElement, config);
         });
+    });
+}
+
+export function resetFormState(formElement, config) {
+    const inputList = formElement.querySelectorAll(config.inputSelector);
+
+    inputList.forEach((inputElement) => {
+        const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+        inputElement.classList.remove(config.inputErrorClass);
+        errorElement.textContent = '';
+    });
+
+    formElement.reset();
+    toggleButtonState(formElement.querySelector(config.submitButtonSelector), false, config);
 }

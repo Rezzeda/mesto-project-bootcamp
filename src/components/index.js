@@ -13,12 +13,15 @@ import {
     addCardButton,
     placeNameInput,
     itemLinkInput,
-    templateCard,
     listGalleryCards,
-    formAddImage
+    formAddImage,
+    popupViewPhoto,
+    popupPhoto,
+    popupPhotoCaption,
+    configForm
     } from './constants.js'
-import { enableValidation } from './validate.js'
-import { openPopup, closePopup, editProfile, } from './modal.js'
+import { enableValidation, resetFormState } from './validate.js'
+import { openPopup, closePopup } from './modal.js'
 import { createCard } from './card.js'
 
 // добавляем обработчик события кнопке редактирования профиля для открытия модального окна c заполнением данных из профиля
@@ -27,6 +30,22 @@ editProfileButton.addEventListener('click', () => {
     nameInput.value = newName.textContent;
     descriptionInput.value = newDescription.textContent;
 });
+
+// Функция обновления профиля введенными даннными
+function editProfile() {
+    newName.textContent = nameInput.value;
+    newDescription.textContent = descriptionInput.value;
+    closePopup(popupEditProfile);
+    resetFormState(formEditProfile, configForm);
+}
+
+//Функция открытия просмотра изображения карточки
+export function viewCardPhoto(evt) {
+    openPopup(popupViewPhoto);
+    popupPhoto.src = evt.target.closest('.card__image').src;
+    popupPhoto.alt = evt.target.closest('.card__image').alt;
+    popupPhotoCaption.textContent = evt.target.closest('.card').textContent;
+};
 
 // функция закрытия попапа по нажатию на крестик
 closeButtons.forEach((item) => {
@@ -76,33 +95,10 @@ const popupCloseClickOverlay = document.querySelectorAll('.popup');
 // Закрытие всех Popup при нажатии на Overlay
 popupCloseClickOverlay.forEach((item) => {
     item.addEventListener('click', (evt) => {
-    if (evt.target === evt.currentTarget) {
-        const overlayClosest = evt.target.closest('.popup');
-        closePopup(overlayClosest);
-        };
+        closePopup(evt.target);
     });
 });
 
-// Добавление обработчика события клавиатуры
-document.addEventListener('keydown', handleEscKey);
-
-// Функция обработки события клавиатуры
-function handleEscKey(event) {
-    if (event.key === 'Escape') {
-        const openedPopup = document.querySelector('.popup_opened');
-        if (openedPopup) {
-            closePopup(openedPopup);
-        }
-    }
-}
-
-const configForm = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__item',
-    submitButtonSelector: '.popup__btn',
-    inactiveButtonClass: 'popup__btn_disabled',
-    inputErrorClass: 'popup__item_invalid',
-}
-
 //вкл валидацию
 enableValidation(configForm);
+

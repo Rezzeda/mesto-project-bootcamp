@@ -1,7 +1,5 @@
-import { 
-    templateCard,
-    } from './constants.js'
-import { viewCardPhoto } from './modal.js'
+import { templateCard } from './constants.js'
+import { viewCardPhoto } from './index.js'
 
 //функция создания карточки
 export function createCard (dataCard) {

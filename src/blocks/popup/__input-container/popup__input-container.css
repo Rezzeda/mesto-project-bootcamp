@@ -5,7 +5,6 @@
     padding: 0;
     margin-bottom: 11px;
     border: 0;
-    row-gap: 30px;
 }
 
 @media screen and (max-width: 660px) {

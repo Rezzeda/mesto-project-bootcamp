@@ -24,3 +24,12 @@ export const formAddImage = document.forms["form-add-image"];
 export const popupViewPhoto = document.querySelector('.popup_type_view-photo');
 export const popupPhoto = document.querySelector('.popup__photo');
 export const popupPhotoCaption = document.querySelector('.popup__photo-caption');
+
+//Объект валидации
+export const configForm = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__item',
+    submitButtonSelector: '.popup__btn',
+    inactiveButtonClass: 'popup__btn_disabled',
+    inputErrorClass: 'popup__item_invalid',
+}
