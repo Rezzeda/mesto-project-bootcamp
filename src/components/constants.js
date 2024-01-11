@@ -25,6 +25,17 @@ export const popupViewPhoto = document.querySelector('.popup_type_view-photo');
 export const popupPhoto = document.querySelector('.popup__photo');
 export const popupPhotoCaption = document.querySelector('.popup__photo-caption');
 
+//popup подтверждения удаления
+export const popupAcceptDelete = document.querySelector('.popup_type_accept-delete');
+export const formAcceptDelete = document.forms["form-accept-delete"];
+
+
+//popup смена аватара
+export const popupChangeAvatar = document.querySelector('.popup_type_change-avatar');
+export const formChangeAvatar = document.forms["form-change-avatar"];
+export const changeAvatarButton = document.querySelector('.profile__avatar-btn');
+
+
 //Объект валидации
 export const configForm = {
     formSelector: '.popup__form',

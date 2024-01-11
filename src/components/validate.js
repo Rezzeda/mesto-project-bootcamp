@@ -14,6 +14,7 @@ export function checkInputValidity(inputElement, formElement, config) {
     // console.log(errorElement);
     if (isInputValidity) {
         hideError(inputElement, errorElement, config);
+        // console.log(inputElement);
     } else {
         showError(inputElement, errorElement, config);
     }

@@ -48,3 +48,10 @@
 @import url(../blocks/popup/__item/_invalid/popup__item_invalid.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/_type/popup_type_view-photo.css);
+
+@import url(../blocks/card/__likes/card__likes.css);
+@import url(../blocks/card/__like-container/card__like-container.css);
+@import url(../blocks/popup/__window/_type/popup__window_type_accept.css);
+
+@import url(../blocks/profile/__avatar-btn/profile__avatar-btn.css);
+@import url(../blocks/profile/__avatar-edit-icon/profile__avatar-edit-icon.css);

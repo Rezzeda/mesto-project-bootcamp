@@ -18,11 +18,16 @@ import {
     popupViewPhoto,
     popupPhoto,
     popupPhotoCaption,
-    configForm
+    configForm,
+    formAcceptDelete,
+    popupAcceptDelete,
+    popupChangeAvatar,
+    formChangeAvatar,
+    changeAvatarButton,
     } from './constants.js'
-import { enableValidation, resetFormState } from './validate.js'
+import { enableValidation, resetFormState,toggleButtonState } from './validate.js'
 import { openPopup, closePopup } from './modal.js'
-import { createCard } from './card.js'
+import { createCard, deleteCard } from './card.js'
 
 // добавляем обработчик события кнопке редактирования профиля для открытия модального окна c заполнением данных из профиля
 editProfileButton.addEventListener('click', () => {
@@ -44,7 +49,9 @@ export function viewCardPhoto(evt) {
     openPopup(popupViewPhoto);
     popupPhoto.src = evt.target.closest('.card__image').src;
     popupPhoto.alt = evt.target.closest('.card__image').alt;
-    popupPhotoCaption.textContent = evt.target.closest('.card').textContent;
+    // popupPhotoCaption.textContent = evt.target.closest('.card').textContent;
+    popupPhotoCaption.textContent = evt.target.closest('.card__image').alt;
+
 };
 
 // функция закрытия попапа по нажатию на крестик
@@ -102,3 +109,47 @@ popupCloseClickOverlay.forEach((item) => {
 //вкл валидацию
 enableValidation(configForm);
 
+// Добавляем обработчик события для формы изменения аватара
+formChangeAvatar.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    changeAvatar();
+    evt.target.reset();
+});
+
+//добавляем обработчик события кнопке смены аватара
+changeAvatarButton.addEventListener('click', () => {
+    openPopup(popupChangeAvatar);
+});
+
+const profilePhoto = document.querySelector('.profile__photo');
+const linkAvatarInput = document.querySelector('.popup__item_avatar-link');
+// const linkAvatarInput = document.forms["form-change-avatar"].elements["avatar-link"];
+function changeAvatar() {
+    // toggleButtonState(formChangeAvatar.querySelector(configForm.submitButtonSelector), true, configForm);
+    // linkAvatarInput.validity.valid = true;
+    profilePhoto.src = linkAvatarInput.value;
+    // console.log(linkAvatarInput.validity);
+    console.log(linkAvatarInput);
+    closePopup(popupChangeAvatar);
+}
+
+
+
+// //Загрузка информации о пользователе с сервера
+// fetch('https://nomoreparties.co/v1/wbf-cohort-15/users/me', {
+//     headers: {
+//         authorization: 'b4ee8ef2-41c2-427f-a7e5-ea90674cee2b'
+//     }
+// })
+//     .then(res => res.json())
+//     .then((result) => {
+//     console.log(result);
+//     }); 
+
+// //обработчик подтверждения удаления
+// formAcceptDelete.addEventListener('submit', (evt) => {
+//     evt.preventDefault();
+//     // deleteCard(evt);
+//     console.log(evt);
+//     closePopup(popupAcceptDelete);
+// });

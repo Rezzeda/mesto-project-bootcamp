@@ -1,5 +1,7 @@
-import { templateCard } from './constants.js'
+import { templateCard, popupAcceptDelete, formAcceptDelete, configForm } from './constants.js'
 import { viewCardPhoto } from './index.js'
+import { toggleButtonState } from './validate.js'
+import { openPopup, closePopup } from './modal.js';
 
 //функция создания карточки
 export function createCard (dataCard) {
@@ -11,18 +13,51 @@ export function createCard (dataCard) {
     cardElementTitle.textContent = dataCard.name;
     cardElementImage.src = dataCard.link;
     cardElementImage.alt = dataCard.name;
-    cardElementTrashButton.addEventListener('click', deleteCard);
+    // cardElementTrashButton.addEventListener('click', deleteCard);
+    // cardElementTrashButton.addEventListener('click', AcceptDeleteCard);
+    cardElementTrashButton.addEventListener('click', (evt) => {
+        // openPopup(popupAcceptDelete);
+        AcceptDeleteCard(evt);
+    });
+    
     cardElementLikeButton.addEventListener('click', likeCard);
     cardElementImage.addEventListener('click', viewCardPhoto);
     return galleryCard;
 }
 
 //Функция удаления карточки
-function deleteCard(evt) {
-    evt.target.closest('.card').remove();
-};
+// export function deleteCard(evt) {
+//     evt.target.closest('.card').remove();
+// };
+
+// export function deleteCard(cardElement) {
+//     // const cardElement = evt.target.closest('.card');
+//     cardElement.remove();
+// }
+
 
 //Функция "нравится"
 function likeCard(evt) {
     evt.target.classList.toggle('card__btn_like-active')
 }
+
+////
+//Функция удаления карточки 
+export function AcceptDeleteCard(evt) {
+    openPopup(popupAcceptDelete);
+    toggleButtonState(formAcceptDelete.querySelector(configForm.submitButtonSelector), true, configForm);
+    formAcceptDelete.addEventListener('submit', function (submitEvt) {
+        submitEvt.preventDefault();
+        evt.target.closest('.card').remove();
+        closePopup(popupAcceptDelete);
+    });
+};
+
+// formAcceptDelete.addEventListener('submit', (submitEvt) => {
+//     submitEvt.preventDefault();
+//     // const cardElement = formAcceptDelete.closest('.card');
+//     const cardElement = submitEvt.target.closest('.popup').parentNode.querySelector('.card');
+//     // console.log(submitEvt.target);
+//     deleteCard(cardElement);
+//     closePopup(popupAcceptDelete);
+// });

@@ -3,7 +3,8 @@
     height: 19px;
     border: none;
     background-color: rgba(0, 0, 0, 0);
-    margin: auto 20px auto 0;
+    /* margin: auto 20px auto 0; */
+    margin-bottom: 3px;
     padding-left: 18px;
     padding-right: 4px;
     cursor: pointer;
