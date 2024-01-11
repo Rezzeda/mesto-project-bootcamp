@@ -109,30 +109,27 @@ popupCloseClickOverlay.forEach((item) => {
 //вкл валидацию
 enableValidation(configForm);
 
-// Добавляем обработчик события для формы изменения аватара
-formChangeAvatar.addEventListener('submit', function (evt) {
-    evt.preventDefault();
-    changeAvatar();
-    evt.target.reset();
-});
-
 //добавляем обработчик события кнопке смены аватара
 changeAvatarButton.addEventListener('click', () => {
     openPopup(popupChangeAvatar);
 });
 
 const profilePhoto = document.querySelector('.profile__photo');
-const linkAvatarInput = document.querySelector('.popup__item_avatar-link');
 // const linkAvatarInput = document.forms["form-change-avatar"].elements["avatar-link"];
+const linkAvatarInput = document.querySelector('.popup__item_avatar-link');
 function changeAvatar() {
-    // toggleButtonState(formChangeAvatar.querySelector(configForm.submitButtonSelector), true, configForm);
-    // linkAvatarInput.validity.valid = true;
     profilePhoto.src = linkAvatarInput.value;
-    // console.log(linkAvatarInput.validity);
-    console.log(linkAvatarInput);
+    // console.log(linkAvatarInput);
+    console.dir(linkAvatarInput);
     closePopup(popupChangeAvatar);
 }
 
+//Добавляем обработчик события для формы изменения аватара
+formChangeAvatar.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    changeAvatar();
+    // evt.target.reset();
+});
 
 
 // //Загрузка информации о пользователе с сервера
@@ -145,11 +142,3 @@ function changeAvatar() {
 //     .then((result) => {
 //     console.log(result);
 //     }); 
-
-// //обработчик подтверждения удаления
-// formAcceptDelete.addEventListener('submit', (evt) => {
-//     evt.preventDefault();
-//     // deleteCard(evt);
-//     console.log(evt);
-//     closePopup(popupAcceptDelete);
-// });

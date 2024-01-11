@@ -12,11 +12,7 @@ export function createCard (dataCard) {
     const cardElementLikeButton = galleryCard.querySelector('.card__btn');
     cardElementTitle.textContent = dataCard.name;
     cardElementImage.src = dataCard.link;
-    cardElementImage.alt = dataCard.name;
-    // cardElementTrashButton.addEventListener('click', deleteCard);
-    // cardElementTrashButton.addEventListener('click', AcceptDeleteCard);
     cardElementTrashButton.addEventListener('click', (evt) => {
-        // openPopup(popupAcceptDelete);
         AcceptDeleteCard(evt);
     });
     
@@ -29,12 +25,6 @@ export function createCard (dataCard) {
 // export function deleteCard(evt) {
 //     evt.target.closest('.card').remove();
 // };
-
-// export function deleteCard(cardElement) {
-//     // const cardElement = evt.target.closest('.card');
-//     cardElement.remove();
-// }
-
 
 //Функция "нравится"
 function likeCard(evt) {
