@@ -34,6 +34,9 @@ export const formAcceptDelete = document.forms["form-accept-delete"];
 export const popupChangeAvatar = document.querySelector('.popup_type_change-avatar');
 export const formChangeAvatar = document.forms["form-change-avatar"];
 export const changeAvatarButton = document.querySelector('.profile__avatar-btn');
+export const profilePhoto = document.querySelector('.profile__photo');
+// export const linkAvatarInput = document.forms["form-change-avatar"].elements["avatar-link"];
+export const linkAvatarInput = document.querySelector('.popup__item_avatar-link');
 
 
 //Объект валидации

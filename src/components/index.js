@@ -24,10 +24,13 @@ import {
     popupChangeAvatar,
     formChangeAvatar,
     changeAvatarButton,
+    profilePhoto,
+    linkAvatarInput,
     } from './constants.js'
 import { enableValidation, resetFormState,toggleButtonState } from './validate.js'
 import { openPopup, closePopup } from './modal.js'
 import { createCard, deleteCard } from './card.js'
+import { getUserInfo, changeUserAvatar, changeProfileInfo, getInitialCards, addUserCard } from './api.js'
 
 // добавляем обработчик события кнопке редактирования профиля для открытия модального окна c заполнением данных из профиля
 editProfileButton.addEventListener('click', () => {
@@ -36,11 +39,29 @@ editProfileButton.addEventListener('click', () => {
     descriptionInput.value = newDescription.textContent;
 });
 
+function getInitialProfileInfo() {
+    getUserInfo()
+        .then(response => {
+            newName.textContent = response.name;
+            newDescription.textContent = response.about;
+            profilePhoto.src = response.avatar;
+            //renderInitialCards(response._id);
+    }).catch((error) => {
+        console.log(error);
+    })
+}
+
+// //получаем свой пользовательский id
+
+
+
 // Функция обновления профиля введенными даннными
 function editProfile() {
     newName.textContent = nameInput.value;
     newDescription.textContent = descriptionInput.value;
     closePopup(popupEditProfile);
+    const dataProfile = {name: newName.textContent, about: newDescription.textContent};
+    changeProfileInfo(dataProfile);
     resetFormState(formEditProfile, configForm);
 }
 
@@ -49,9 +70,8 @@ export function viewCardPhoto(evt) {
     openPopup(popupViewPhoto);
     popupPhoto.src = evt.target.closest('.card__image').src;
     popupPhoto.alt = evt.target.closest('.card__image').alt;
-    // popupPhotoCaption.textContent = evt.target.closest('.card').textContent;
+    // // popupPhotoCaption.textContent = evt.target.closest('.card').textContent;
     popupPhotoCaption.textContent = evt.target.closest('.card__image').alt;
-
 };
 
 // функция закрытия попапа по нажатию на крестик
@@ -74,10 +94,30 @@ addCardButton.addEventListener('click', () => {
     openPopup(popupAddImage);
 });
 
-//функция добавления карточек из массива
-initialCards.forEach((dataCard) => {
-    listGalleryCards.append(createCard(dataCard));
-});
+// //функция добавления карточек из массива
+// initialCards.forEach((dataCard) => {
+//     listGalleryCards.append(createCard(dataCard));
+// });
+
+//добавляем карточки с сервера
+function addInitialCards () {
+    getInitialCards()
+        .then(cards => {
+            // console.log(cards);
+            // cards.forEach((card) => console.log(card.name));
+            cards.forEach((card) => {
+                const newCardData = {
+                    name: card.name,
+                    link: card.link,
+                    likes: card.likes,
+                    owner: card.owner,
+                }
+                const newCard = createCard(newCardData);
+                listGalleryCards.prepend(newCard);
+            })
+        })
+}
+addInitialCards ();
 
 // функция создания карточки из введенных данных
 function addCardFromPopup() {
@@ -87,6 +127,7 @@ function addCardFromPopup() {
     }
     const newCard = createCard(newCardData);
     listGalleryCards.prepend(newCard);
+    addUserCard(newCardData);
     closePopup(popupAddImage);
 };
 
@@ -106,21 +147,15 @@ popupCloseClickOverlay.forEach((item) => {
     });
 });
 
-//вкл валидацию
-enableValidation(configForm);
-
 //добавляем обработчик события кнопке смены аватара
 changeAvatarButton.addEventListener('click', () => {
     openPopup(popupChangeAvatar);
 });
 
-const profilePhoto = document.querySelector('.profile__photo');
-// const linkAvatarInput = document.forms["form-change-avatar"].elements["avatar-link"];
-const linkAvatarInput = document.querySelector('.popup__item_avatar-link');
 function changeAvatar() {
     profilePhoto.src = linkAvatarInput.value;
-    // console.log(linkAvatarInput);
-    console.dir(linkAvatarInput);
+    const dataProfileAvatar = {avatar: profilePhoto.src};
+    changeUserAvatar(dataProfileAvatar);
     closePopup(popupChangeAvatar);
 }
 
@@ -128,17 +163,12 @@ function changeAvatar() {
 formChangeAvatar.addEventListener('submit', function (evt) {
     evt.preventDefault();
     changeAvatar();
-    // evt.target.reset();
+    evt.target.reset();
 });
 
+getInitialProfileInfo();
 
-// //Загрузка информации о пользователе с сервера
-// fetch('https://nomoreparties.co/v1/wbf-cohort-15/users/me', {
-//     headers: {
-//         authorization: 'b4ee8ef2-41c2-427f-a7e5-ea90674cee2b'
-//     }
-// })
-//     .then(res => res.json())
-//     .then((result) => {
-//     console.log(result);
-//     }); 
+//вкл валидацию
+enableValidation(configForm);
+
+

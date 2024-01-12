@@ -1,5 +1,5 @@
 import { templateCard, popupAcceptDelete, formAcceptDelete, configForm } from './constants.js'
-import { viewCardPhoto } from './index.js'
+import { viewCardPhoto, getMyId } from './index.js'
 import { toggleButtonState } from './validate.js'
 import { openPopup, closePopup } from './modal.js';
 
@@ -10,14 +10,20 @@ export function createCard (dataCard) {
     const cardElementImage = galleryCard.querySelector('.card__image');
     const cardElementTrashButton = galleryCard.querySelector('.card__btn_trash')
     const cardElementLikeButton = galleryCard.querySelector('.card__btn');
+    const likesCounter = galleryCard.querySelector('.card__likes');
     cardElementTitle.textContent = dataCard.name;
     cardElementImage.src = dataCard.link;
+    cardElementImage.alt = dataCard.name;
+    likesCounter.textContent = dataCard.likes.length;
     cardElementTrashButton.addEventListener('click', (evt) => {
         AcceptDeleteCard(evt);
     });
-    
     cardElementLikeButton.addEventListener('click', likeCard);
     cardElementImage.addEventListener('click', viewCardPhoto);
+
+    // const userId = dataCard.owner._id;
+    // console.log(userId);
+    // const cardId = dataCard._id;
     return galleryCard;
 }
 
@@ -28,7 +34,8 @@ export function createCard (dataCard) {
 
 //Функция "нравится"
 function likeCard(evt) {
-    evt.target.classList.toggle('card__btn_like-active')
+    evt.target.classList.toggle('card__btn_like-active');
+
 }
 
 ////
