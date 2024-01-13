@@ -98,3 +98,17 @@ export const removeLike = (cardId) => {
         return response.json();
     });
 }
+
+//удаление карточки с сервера
+export const removeCard = (cardId) => {
+    return fetch(`${configApi.baseUrl}/cards/${cardId}`, {
+        method: "DELETE",
+        headers: configApi.headers,
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Ошибка: ${response.status}`);
+        }
+        return response.json();
+    });
+}

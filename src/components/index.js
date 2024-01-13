@@ -1,5 +1,5 @@
 import '../pages/index.css';
-import { initialCards } from './initial-cards.js'
+//import { initialCards } from './initial-cards.js'
 import { 
     editProfileButton,
     popupEditProfile,
@@ -19,18 +19,17 @@ import {
     popupPhoto,
     popupPhotoCaption,
     configForm,
-    formAcceptDelete,
-    popupAcceptDelete,
     popupChangeAvatar,
     formChangeAvatar,
     changeAvatarButton,
     profilePhoto,
     linkAvatarInput,
     } from './constants.js'
-import { enableValidation, resetFormState,toggleButtonState } from './validate.js'
+import { enableValidation, resetFormState } from './validate.js'
 import { openPopup, closePopup } from './modal.js'
-import { createCard, deleteCard } from './card.js'
+import { createCard } from './card.js'
 import { getUserInfo, changeUserAvatar, changeProfileInfo, getInitialCards, addUserCard } from './api.js'
+export let myId = null;
 
 // добавляем обработчик события кнопке редактирования профиля для открытия модального окна c заполнением данных из профиля
 editProfileButton.addEventListener('click', () => {
@@ -45,15 +44,11 @@ function getInitialProfileInfo() {
             newName.textContent = response.name;
             newDescription.textContent = response.about;
             profilePhoto.src = response.avatar;
-            //renderInitialCards(response._id);
+            myId = response._id;
     }).catch((error) => {
         console.log(error);
     })
 }
-
-// //получаем свой пользовательский id
-
-
 
 // Функция обновления профиля введенными даннными
 function editProfile() {
@@ -99,25 +94,24 @@ addCardButton.addEventListener('click', () => {
 //     listGalleryCards.append(createCard(dataCard));
 // });
 
-//добавляем карточки с сервера
+//добавляем карточки с сервера по дате создания, сначала последние
 function addInitialCards () {
     getInitialCards()
         .then(cards => {
             // console.log(cards);
-            // cards.forEach((card) => console.log(card.name));
-            cards.forEach((card) => {
-                const newCardData = {
-                    name: card.name,
-                    link: card.link,
-                    likes: card.likes,
-                    owner: card.owner,
-                }
-                const newCard = createCard(newCardData);
-                listGalleryCards.prepend(newCard);
+            // cards.forEach((card) => console.log(card));
+            cards.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+            cards.forEach(card => renderCard(card));
             })
-        })
 }
 addInitialCards ();
+
+//отрисовка карточки
+function renderCard(data) {
+    const newCard = createCard(data);
+    // console.log(newCard);
+    listGalleryCards.prepend(newCard);
+}
 
 // функция создания карточки из введенных данных
 function addCardFromPopup() {
@@ -125,10 +119,13 @@ function addCardFromPopup() {
         name: placeNameInput.value,
         link: itemLinkInput.value,
     }
-    const newCard = createCard(newCardData);
-    listGalleryCards.prepend(newCard);
-    addUserCard(newCardData);
-    closePopup(popupAddImage);
+    addUserCard(newCardData)
+        .then(response => {
+            renderCard(response);
+            closePopup(popupAddImage);
+        }).catch((error) => {
+            console.log(error);
+        })    
 };
 
 formAddImage.addEventListener('submit', (evt) => {
