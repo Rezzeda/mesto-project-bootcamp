@@ -44,7 +44,7 @@ export function createCard (dataCard) {
                 cardElementLikeButton.classList.add('card__btn_like-active');
             })
             .catch(error => {
-                console.error('Error liking card:', error);
+                console.error(`Ошибка при удалении карточки: ${error}`);
             });
         } else {
             removeLike(cardId)
@@ -53,7 +53,7 @@ export function createCard (dataCard) {
                 cardElementLikeButton.classList.remove('card__btn_like-active');
             })
             .catch(error => {
-                console.error('Error unliking card:', error);
+                console.error(`Ошибка при удалении карточки: ${error}`);
             });
         }
     });
@@ -80,6 +80,7 @@ export function AcceptDeleteCard(evt, cardId) {
     toggleButtonState(formAcceptDelete.querySelector(configForm.submitButtonSelector), true, configForm);
     formAcceptDelete.addEventListener('submit', function (submitEvt) {
         submitEvt.preventDefault();
+        submitEvt.submitter.textContent = 'Сохранение...';
         removeCard(cardId)
             .then(() => {
                 evt.target.closest('.card').remove();
@@ -87,6 +88,9 @@ export function AcceptDeleteCard(evt, cardId) {
             })
             .catch((error) => {
                 console.error(`Ошибка при удалении карточки: ${error}`);
+            })
+            .finally(() => {
+                submitEvt.submitter.textContent = 'Да';
             });
     });
 };

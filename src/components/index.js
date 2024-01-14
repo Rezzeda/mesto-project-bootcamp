@@ -45,20 +45,38 @@ function getInitialProfileInfo() {
             newDescription.textContent = response.about;
             profilePhoto.src = response.avatar;
             myId = response._id;
-    }).catch((error) => {
-        console.log(error);
-    })
+        })
+        .catch((error) => {
+            console.error(`Ошибка при загрузке профиля: ${error}`);
+        })
 }
 
 // Функция обновления профиля введенными даннными
-function editProfile() {
+function editProfile(evt) {
     newName.textContent = nameInput.value;
     newDescription.textContent = descriptionInput.value;
-    closePopup(popupEditProfile);
+    // closePopup(popupEditProfile);
     const dataProfile = {name: newName.textContent, about: newDescription.textContent};
-    changeProfileInfo(dataProfile);
+    evt.submitter.textContent = 'Сохранение...';
+    changeProfileInfo(dataProfile)
+        .then(() => {
+            closePopup(popupEditProfile);
+        })
+        .catch((error) => {
+            console.error(`Ошибка при изменении профиля: ${error}`);
+        })
+        .finally(() => {
+            evt.submitter.textContent = 'Сохранить';
+        });
     resetFormState(formEditProfile, configForm);
 }
+
+//Функция сохранения внесенных в формы popup изменений при рекдактиронии профиля
+formEditProfile.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    editProfile(evt);
+    closePopup(popupEditProfile);
+}); 
 
 //Функция открытия просмотра изображения карточки
 export function viewCardPhoto(evt) {
@@ -75,13 +93,6 @@ closeButtons.forEach((item) => {
         const popupClosest = evt.target.closest('.popup');
         closePopup(popupClosest);
     });
-});
-
-//Функция сохранения внесенных в формы popup изменений при рекдактиронии профиля
-formEditProfile.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    editProfile();
-    closePopup(popupEditProfile);
 });
 
 //добавляем обработчик события кнопке добавления карточки для открытия модального окна
@@ -102,35 +113,42 @@ function addInitialCards () {
             // cards.forEach((card) => console.log(card));
             cards.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
             cards.forEach(card => renderCard(card));
-            })
+        })
+        .catch((error) => {
+            console.error(`Ошибка при загрузке карточек: ${error}`);
+        })
 }
 addInitialCards ();
 
 //отрисовка карточки
 function renderCard(data) {
     const newCard = createCard(data);
-    // console.log(newCard);
     listGalleryCards.prepend(newCard);
 }
 
 // функция создания карточки из введенных данных
-function addCardFromPopup() {
+function addCardFromPopup(evt) {
     const newCardData = {
         name: placeNameInput.value,
         link: itemLinkInput.value,
-    }
+    };
+    evt.submitter.textContent = 'Сохранение...';
     addUserCard(newCardData)
         .then(response => {
             renderCard(response);
             closePopup(popupAddImage);
-        }).catch((error) => {
-            console.log(error);
-        })    
+        })
+        .catch((error) => {
+            console.error(`Ошибка при сохранении карточки: ${error}`); 
+        })
+        .finally(() => {
+            evt.submitter.textContent = 'Сохранить';
+        });
 };
 
 formAddImage.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    addCardFromPopup();
+    addCardFromPopup(evt);
     evt.target.reset();
 });
 
@@ -149,17 +167,27 @@ changeAvatarButton.addEventListener('click', () => {
     openPopup(popupChangeAvatar);
 });
 
-function changeAvatar() {
+//функция смены аватара
+function changeAvatar(evt) {
     profilePhoto.src = linkAvatarInput.value;
     const dataProfileAvatar = {avatar: profilePhoto.src};
-    changeUserAvatar(dataProfileAvatar);
-    closePopup(popupChangeAvatar);
+    evt.submitter.textContent = 'Сохранение...';
+    changeUserAvatar(dataProfileAvatar)
+        .then(() => {
+            closePopup(popupChangeAvatar);
+        })
+        .catch((error) => {
+            console.error(`Ошибка при изменении аватара: ${error}`);
+        })
+        .finally(() => {
+            evt.submitter.textContent = 'Сохранить';
+        });
 }
 
 //Добавляем обработчик события для формы изменения аватара
 formChangeAvatar.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    changeAvatar();
+    changeAvatar(evt);
     evt.target.reset();
 });
 
