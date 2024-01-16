@@ -2,7 +2,7 @@
 
 Сервис Mesto: интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки.
 
-### [Посмотреть проект Mesto.](https://rezzeda.github.io/mesto-project-bootcamp/index.html)
+### [Посмотреть проект Mesto.](https://rezzeda.github.io/mesto-project-bootcamp)
 
 ### Обзор
 

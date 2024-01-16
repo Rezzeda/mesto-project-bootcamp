@@ -1,5 +1,4 @@
 import '../pages/index.css';
-//import { initialCards } from './initial-cards.js'
 import { 
     editProfileButton,
     popupEditProfile,
@@ -24,6 +23,7 @@ import {
     changeAvatarButton,
     profilePhoto,
     linkAvatarInput,
+    popups,
     } from './constants.js'
 import { enableValidation, resetFormState } from './validate.js'
 import { openPopup, closePopup } from './modal.js'
@@ -38,28 +38,15 @@ editProfileButton.addEventListener('click', () => {
     descriptionInput.value = newDescription.textContent;
 });
 
-function getInitialProfileInfo() {
-    getUserInfo()
-        .then(response => {
-            newName.textContent = response.name;
-            newDescription.textContent = response.about;
-            profilePhoto.src = response.avatar;
-            myId = response._id;
-        })
-        .catch((error) => {
-            console.error(`Ошибка при загрузке профиля: ${error}`);
-        })
-}
-
 // Функция обновления профиля введенными даннными
 function editProfile(evt) {
-    newName.textContent = nameInput.value;
-    newDescription.textContent = descriptionInput.value;
-    // closePopup(popupEditProfile);
     const dataProfile = {name: newName.textContent, about: newDescription.textContent};
     evt.submitter.textContent = 'Сохранение...';
     changeProfileInfo(dataProfile)
         .then(() => {
+            newName.textContent = nameInput.value;
+            newDescription.textContent = descriptionInput.value;
+            formEditProfile.reset();
             closePopup(popupEditProfile);
         })
         .catch((error) => {
@@ -68,23 +55,20 @@ function editProfile(evt) {
         .finally(() => {
             evt.submitter.textContent = 'Сохранить';
         });
-    resetFormState(formEditProfile, configForm);
 }
 
 //Функция сохранения внесенных в формы popup изменений при рекдактиронии профиля
 formEditProfile.addEventListener('submit', (evt) => {
     evt.preventDefault();
     editProfile(evt);
-    closePopup(popupEditProfile);
 }); 
 
 //Функция открытия просмотра изображения карточки
-export function viewCardPhoto(evt) {
+export function viewCardPhoto(dataCard) {
     openPopup(popupViewPhoto);
-    popupPhoto.src = evt.target.closest('.card__image').src;
-    popupPhoto.alt = evt.target.closest('.card__image').alt;
-    // // popupPhotoCaption.textContent = evt.target.closest('.card').textContent;
-    popupPhotoCaption.textContent = evt.target.closest('.card__image').alt;
+    popupPhoto.src = dataCard.link;
+    popupPhoto.alt = dataCard.name;
+    popupPhotoCaption.textContent = dataCard.name;
 };
 
 // функция закрытия попапа по нажатию на крестик
@@ -100,26 +84,6 @@ addCardButton.addEventListener('click', () => {
     openPopup(popupAddImage);
 });
 
-// //функция добавления карточек из массива
-// initialCards.forEach((dataCard) => {
-//     listGalleryCards.append(createCard(dataCard));
-// });
-
-//добавляем карточки с сервера по дате создания, сначала последние
-function addInitialCards () {
-    getInitialCards()
-        .then(cards => {
-            // console.log(cards);
-            // cards.forEach((card) => console.log(card));
-            cards.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-            cards.forEach(card => renderCard(card));
-        })
-        .catch((error) => {
-            console.error(`Ошибка при загрузке карточек: ${error}`);
-        })
-}
-addInitialCards ();
-
 //отрисовка карточки
 function renderCard(data) {
     const newCard = createCard(data);
@@ -132,33 +96,35 @@ function addCardFromPopup(evt) {
         name: placeNameInput.value,
         link: itemLinkInput.value,
     };
-    evt.submitter.textContent = 'Сохранение...';
+    evt.submitter.textContent = 'Создание...';
     addUserCard(newCardData)
         .then(response => {
             renderCard(response);
+            // resetFormState(formAddImage, configForm);
+            formAddImage.reset();
             closePopup(popupAddImage);
+            // resetFormState(formAddImage, configForm);
         })
         .catch((error) => {
-            console.error(`Ошибка при сохранении карточки: ${error}`); 
+            console.error(`Ошибка при создании карточки: ${error}`); 
         })
         .finally(() => {
-            evt.submitter.textContent = 'Сохранить';
+            evt.submitter.textContent = 'Создать';
         });
 };
 
 formAddImage.addEventListener('submit', (evt) => {
     evt.preventDefault();
     addCardFromPopup(evt);
-    evt.target.reset();
+    // evt.target.reset();
 });
 
-// Поле закрытия Popup при нажатии на Overlay
-const popupCloseClickOverlay = document.querySelectorAll('.popup');   
-
 // Закрытие всех Popup при нажатии на Overlay
-popupCloseClickOverlay.forEach((item) => {
+popups.forEach((item) => {
     item.addEventListener('click', (evt) => {
-        closePopup(evt.target);
+        if(evt.target.classList.contains('popup')) {
+            closePopup(evt.target);
+        }
     });
 });
 
@@ -169,12 +135,13 @@ changeAvatarButton.addEventListener('click', () => {
 
 //функция смены аватара
 function changeAvatar(evt) {
-    profilePhoto.src = linkAvatarInput.value;
     const dataProfileAvatar = {avatar: profilePhoto.src};
     evt.submitter.textContent = 'Сохранение...';
     changeUserAvatar(dataProfileAvatar)
         .then(() => {
+            profilePhoto.src = linkAvatarInput.value;
             closePopup(popupChangeAvatar);
+            formChangeAvatar.reset();
         })
         .catch((error) => {
             console.error(`Ошибка при изменении аватара: ${error}`);
@@ -188,10 +155,20 @@ function changeAvatar(evt) {
 formChangeAvatar.addEventListener('submit', function (evt) {
     evt.preventDefault();
     changeAvatar(evt);
-    evt.target.reset();
 });
 
-getInitialProfileInfo();
+//загрузки всех данных, и пользователя и карточек.
+Promise.all([getUserInfo(), getInitialCards()]) 
+.then(([info, initialCards])=>{
+    newName.textContent = info.name;
+    newDescription.textContent = info.about;
+    profilePhoto.src = info.avatar;
+    myId = info._id;
+    initialCards.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); //добавляем карточки с сервера по дате создания, сначала последние
+    initialCards.forEach(card => renderCard(card));
+}) 
+.catch((error)=>{console.error(`Ошибка при выгрузке с сервера: ${error}`);
+}) 
 
 //вкл валидацию
 enableValidation(configForm);

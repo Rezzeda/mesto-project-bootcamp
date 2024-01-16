@@ -55,13 +55,11 @@ export function enableValidation(config) {
 
 export function resetFormState(formElement, config) {
     const inputList = formElement.querySelectorAll(config.inputSelector);
-
     inputList.forEach((inputElement) => {
         const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
         inputElement.classList.remove(config.inputErrorClass);
         errorElement.textContent = '';
     });
-
-    formElement.reset();
+    // formElement.reset();
     toggleButtonState(formElement.querySelector(config.submitButtonSelector), false, config);
 }

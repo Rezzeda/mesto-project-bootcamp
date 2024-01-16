@@ -17,19 +17,40 @@ export function createCard (dataCard) {
     cardElementImage.src = dataCard.link;
     cardElementImage.alt = dataCard.name;
     //просмотр карточки
-    cardElementImage.addEventListener('click', viewCardPhoto);
+    // cardElementImage.addEventListener('click', viewCardPhoto);
+    cardElementImage.addEventListener('click', () => {
+        viewCardPhoto(dataCard);
+    });
 
     likesCounter.textContent = dataCard.likes.length;
     const cardId = dataCard._id;
 
+    // //удаляем значок корзины с чужих карточек
+    // if(dataCard.owner._id !== myId) {
+    //     cardElementTrashButton.remove();
+    // } else {
+    // // удаление карточки
+    // cardElementTrashButton.addEventListener('click', (evt) => {
+    //     acceptDeleteCard(evt, cardId);
+    // });
+    // }
+
     //удаляем значок корзины с чужих карточек
     if(dataCard.owner._id !== myId) {
         cardElementTrashButton.remove();
-    }
-    // удаление карточки
+    } else {
+    // удаление карточки без подтверждения
     cardElementTrashButton.addEventListener('click', (evt) => {
-        AcceptDeleteCard(evt, cardId);
+        deleteCard(evt, cardId);
     });
+    //удаление карточки с подтверждением
+    // cardElementTrashButton.addEventListener('click', (evt) => {
+    //     acceptDeleteCard(evt, cardId);
+    // });
+    //     cardElementTrashButton.addEventListener('click', () => {
+    //     handleClickDelete(dataCard);
+    // });
+    }
 
     //для отображения поставленных мной лайков после выгрузки карточек
     if (isObjectWithIdInArray(dataCard.likes)) {
@@ -64,10 +85,17 @@ export function createCard (dataCard) {
 function isObjectWithIdInArray(arr) {
     return arr.some(obj => obj.hasOwnProperty('_id') && obj._id === myId);
 }
-//Функция удаления карточки - простая
-// export function deleteCard(evt) {
-//     evt.target.closest('.card').remove();
-// };
+
+//Функция удаления карточки - без подтверждения
+export function deleteCard(evt, cardId) {
+    removeCard(cardId)
+        .then(() => {
+            evt.target.closest('.card').remove();
+        })
+        .catch((error) => {
+            console.error(`Ошибка при удалении карточки: ${error}`);
+        })
+};
 
 //Функция "нравится" (без сервера)
 // function likeCard(evt) {
@@ -75,22 +103,68 @@ function isObjectWithIdInArray(arr) {
 // }
 
 //Функция удаления карточки с подтверждением
-export function AcceptDeleteCard(evt, cardId) {
-    openPopup(popupAcceptDelete);
-    toggleButtonState(formAcceptDelete.querySelector(configForm.submitButtonSelector), true, configForm);
-    formAcceptDelete.addEventListener('submit', function (submitEvt) {
-        submitEvt.preventDefault();
-        submitEvt.submitter.textContent = 'Сохранение...';
-        removeCard(cardId)
-            .then(() => {
-                evt.target.closest('.card').remove();
-                closePopup(popupAcceptDelete);
-            })
-            .catch((error) => {
-                console.error(`Ошибка при удалении карточки: ${error}`);
-            })
-            .finally(() => {
-                submitEvt.submitter.textContent = 'Да';
-            });
-    });
-};
+// export function acceptDeleteCard(evt, cardId) {
+//     openPopup(popupAcceptDelete);
+//     toggleButtonState(formAcceptDelete.querySelector(configForm.submitButtonSelector), true, configForm);
+//     formAcceptDelete.addEventListener('submit', function (submitEvt) {
+//         submitEvt.preventDefault();
+//         submitEvt.submitter.textContent = 'Удаление...';
+//         removeCard(cardId)
+//             .then(() => {
+//                 evt.target.closest('.card').remove();
+//                 closePopup(popupAcceptDelete);
+//             })
+//             .catch((error) => {
+//                 console.error(`Ошибка при удалении карточки: ${error}`);
+//             })
+//             .finally(() => {
+//                 submitEvt.submitter.textContent = 'Да';
+//             });
+//     });
+// };
+
+// formAcceptDelete.addEventListener('submit', (submitEvt) => {
+//     submitEvt.preventDefault();
+//     handleDeleteSubmit(submitEvt);
+//     // closePopup(popupAcceptDelete);
+// });
+
+// // переменная для карточки к удалению
+// let  cardForDelete = null;
+
+// const handleClickDelete = async (dataCard) => {
+//     cardForDelete = {
+//         id: dataCard._id,
+//         // element: dataCard
+//         element: createCard(dataCard)
+//     };
+//     openPopup(popupAcceptDelete);
+//     // toggleButtonState(formAcceptDelete.querySelector(configForm.submitButtonSelector), true, configForm);
+// }
+
+// function handleDeleteSubmit (evt) {
+//     evt.preventDefault();
+//     if (!cardForDelete) return;
+//     // console.log(evt);
+//     evt.submitter.textContent = 'Удаление...';
+//     removeCard(cardForDelete.id)
+//     .then(() => {
+//         // console.log(updateCard);
+//         // evt.target.closest('.card').remove();
+//         cardForDelete.element.remove();
+//         // handleDeleteCardClick(cardForDelete.element);
+//         closePopup(popupAcceptDelete);
+//         // cardForDelete = null;
+//     })
+//     .catch((error) => {
+//         console.error(`Ошибка при удалении карточки: ${error}`);
+//     })
+//     .finally(() => {
+//         evt.submitter.textContent = 'Удалить';
+//     });
+// };
+
+// function handleDeleteCardClick (element) {
+//     element.remove();
+//     // closePopup(popupAcceptDelete);
+// }

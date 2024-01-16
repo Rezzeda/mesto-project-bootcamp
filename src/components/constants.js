@@ -1,3 +1,6 @@
+//попапы - поле закрытия Popup
+export const popups = document.querySelectorAll('.popup');
+
 // popup Редактирование профиля
 export const editProfileButton = document.querySelector('.profile__btn_action_edit-profile');
 export const popupEditProfile = document.querySelector('.popup_type_edit-profile');
