@@ -18,7 +18,7 @@ mode: 'development',
     static: path.resolve(__dirname, './dist'),
     open: true,
     compress: true,
-    port: 8080
+    port: 8089
 },
 module: {
     rules: [{
